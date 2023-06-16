@@ -1,4 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
+
+import 'package:moneyhive/app_config.dart';
+import 'package:moneyhive/libraries/session.dart';
+
+import 'package:moneyhive/shared_widgets/menu_icon.dart';
+import 'package:moneyhive/shared_widgets/alert_dialog.dart';
+
+import 'package:moneyhive/pages/login/page_login.dart';
+
+import 'package:moneyhive/pages/transactions/page_transactions.dart';
+import 'package:moneyhive/pages/transactions/page_notes_add.dart';
+import 'package:biya_flutter/pages/notes/page_notes_edit.dart';
+
+import 'package:biya_flutter/pages/online_notes/page_online_notes.dart';
+import 'package:biya_flutter/pages/online_notes/page_online_notes_add.dart';
+import 'package:biya_flutter/pages/online_notes/page_online_notes_edit.dart';
+
+import 'package:biya_flutter/pages/blogs/page_blogs.dart';
+import 'package:biya_flutter/pages/blogs/page_blogs_add.dart';
+import 'package:biya_flutter/pages/blogs/page_blogs_edit.dart';
+
+import 'package:biya_flutter/pages/tests/page_test.dart';
+
+final routes = {
+  '/': (BuildContext context) => const MyHomePage(),
+  '/transactions': (BuildContext context) => const PageTransactions(),
+};
 
 void main() {
   runApp(const MyApp());
@@ -24,13 +52,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
