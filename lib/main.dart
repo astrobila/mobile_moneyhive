@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<Widget> selectedOption() async {
     if ((await Session.getSession()).status != 1) {
-      await Navigator.pushNamed(context, '/login');
+      //await Navigator.pushNamed(context, '/login');
     }
     switch (selectedIndex) {
       case 0:
