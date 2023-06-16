@@ -21,6 +21,7 @@ import 'package:moneyhive/pages/profile/page_profile.dart';
 
 final routes = {
   '/': (BuildContext context) => const MyHomePage(),
+  '/login': (BuildContext context) => const PageLogin(),
 };
 
 void main() {
@@ -53,25 +54,42 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int selectedIndex = 0;
 
-  //list of widgets to call ontap
-  final widgetOptions = [
-    PageHome(),
-    PageTransactions(),
-    PageWishlist(),
-    PageProfile(),
-  ];
-
   void onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
+      //if (selectedIndex == 3) Session.destroySession();
     });
+  }
+
+  Future<Widget> selectedOption() async {
+    if ((await Session.getSession()).status != 1) {
+      await Navigator.pushNamed(context, '/login');
+    }
+    switch (selectedIndex) {
+      case 0:
+        return PageHome();
+      case 1:
+        return PageTransactions();
+      case 2:
+        return PageWishlist();
+      case 3:
+        return PageProfile();
+    }
+
+    return Container();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-          child: widgetOptions.elementAt(selectedIndex),
+          child: FutureBuilder(
+            future: selectedOption(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) return snapshot.data ?? Container();
+              return Container();
+            },
+          ),
         ),
         bottomNavigationBar: Theme(
             data: Theme.of(context).copyWith(

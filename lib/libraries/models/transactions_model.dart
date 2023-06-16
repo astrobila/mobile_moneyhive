@@ -9,20 +9,19 @@ import 'package:moneyhive/libraries/session.dart';
 class Transaction {
   int? id;
   int? userId;
-  String? title;
-  String? description;
-  int? status;
-  double? itemPrice;
-  double? progress;
+  String title;
+  String description;
+  int? account;
+  double? amount;
 
-  Transaction(
-      {this.id,
-      this.userId,
-      this.title,
-      this.description,
-      this.status,
-      this.itemPrice,
-      this.progress});
+  Transaction({
+    this.id,
+    this.userId,
+    required this.title,
+    required this.description,
+    this.account,
+    this.amount,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -30,9 +29,8 @@ class Transaction {
       'userId': userId,
       'title': title,
       'description': description,
-      'status': status,
-      'itemPrice': itemPrice,
-      'progress': progress,
+      'account': account,
+      'amount': amount,
     };
   }
 
@@ -41,6 +39,9 @@ class Transaction {
       id: map['id'] as int,
       userId: map['userId'] as int,
       title: (map['title'] ?? '') as String,
+      description: (map['description'] ?? '') as String,
+      account: map['account'] as int,
+      amount: map['amount'] as double,
     );
   }
 }
@@ -65,10 +66,11 @@ class TransactionModel {
         Transaction.fromMap(
           {
             'id': int.parse(value['id']),
-            'author': value['author'],
-            'lastEdit': value['username'],
+            'userId': int.parse(value['user_id']),
             'title': value['title'] ?? '',
-            'content': value['content'] ?? '',
+            'description': value['description'] ?? '',
+            'account': int.parse(value['account']),
+            'amount': double.parse(value['amount']),
           },
         ),
       );
@@ -84,6 +86,14 @@ class TransactionModel {
     double Balance = double.parse(sessData.data['data']);
 
     return Balance;
+  }
+
+  static Future<int> add(Transaction transaction) async {
+    SessionData sessData = await Session.postURL(
+        '$_addURL?${DateTime.now().millisecondsSinceEpoch.toString()}',
+        {'title': transaction.title, 'description': transaction.description});
+
+    return sessData.status;
   }
 
   static Future<int> delete(Transaction transaction) async {

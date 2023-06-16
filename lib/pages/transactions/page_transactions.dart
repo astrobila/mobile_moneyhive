@@ -30,7 +30,7 @@ class _MyWidgetState extends State<PageTransactions> {
       floatingActionButton: FloatingActionButton(
         child: Icon(LineIcons.plus),
         onPressed: () async {
-          await Navigator.pushNamed(context, '/blogs_add');
+          await Navigator.pushNamed(context, '/transactions_add');
           setState(() {});
         },
       ),
@@ -52,7 +52,7 @@ class _MyWidgetState extends State<PageTransactions> {
                     onTap: () async {
                       await Navigator.pushNamed(
                         context,
-                        '/blogs_edit',
+                        '/transactions_edit',
                         arguments: transactions[idx],
                       );
                       setState(() {});

@@ -57,7 +57,20 @@ class WishlistModel {
     if (sessData.status != 1) return [];
 
     List<Wishlist> Wishlists = [];
-
+    (sessData.data['data'] as List).forEach((value) {
+      Wishlists.add(
+        Wishlist.fromMap(
+          {
+            'id': int.parse(value['id']),
+            'userId': int.parse(value['user_id']),
+            'title': value['title'] ?? '',
+            'description': value['description'] ?? '',
+            'itemPrice': double.parse(value['item_price']),
+            'progress': double.parse(value['progress']),
+          },
+        ),
+      );
+    });
     return Wishlists;
   }
 
