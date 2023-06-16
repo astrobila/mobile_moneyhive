@@ -6,19 +6,19 @@ import 'package:moneyhive/shared_widgets/loading_dialog.dart';
 import 'package:moneyhive/shared_widgets/confirm_dialog.dart';
 import 'package:moneyhive/libraries/models/transactions_model.dart';
 
-class PageProfile extends StatefulWidget {
-  const PageProfile({super.key});
+class PageHome extends StatefulWidget {
+  const PageHome({super.key});
 
   @override
-  State<PageProfile> createState() => _MyWidgetState();
+  State<PageHome> createState() => _MyWidgetState();
 }
 
-class _MyWidgetState extends State<PageProfile> {
+class _MyWidgetState extends State<PageHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-      title: const Text('Profile'),
+      title: const Text('Home'),
     ));
   }
 }

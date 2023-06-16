@@ -24,50 +24,51 @@ class _MyWidgetState extends State<PageTransactions> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Blogs'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(LineIcons.plus),
-          onPressed: () async {
-            await Navigator.pushNamed(context, '/blogs_add');
-            setState(() {});
-          },
-        ),
-        body: FutureBuilder(
-            future: loadData(),
-            builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasData) {
-                return ListView.separated(
-                  itemBuilder: (BuildContext context, int idx) {
-                    return ListTile(
-                      leading: const Icon(LineIcons.book),
-                      title: Text('transactions'),
-                      subtitle: Text('transactions'),
-                      onTap: () async {
-                        await Navigator.pushNamed(
-                          context,
-                          '/blogs_edit',
-                          arguments: transactions[idx],
-                        );
-                        setState(() {});
-                      },
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int idx) {
-                    return const Divider();
-                  },
-                  itemCount: transactions.length,
-                );
-              }
+      appBar: AppBar(
+        title: const Text('Transactions'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(LineIcons.plus),
+        onPressed: () async {
+          await Navigator.pushNamed(context, '/blogs_add');
+          setState(() {});
+        },
+      ),
+      body: FutureBuilder(
+          future: loadData(),
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            }));
+            }
+            if (snapshot.hasData) {
+              return ListView.separated(
+                itemBuilder: (BuildContext context, int idx) {
+                  return ListTile(
+                    leading: const Icon(LineIcons.book),
+                    title: Text('transactions'),
+                    subtitle: Text('transactions'),
+                    onTap: () async {
+                      await Navigator.pushNamed(
+                        context,
+                        '/blogs_edit',
+                        arguments: transactions[idx],
+                      );
+                      setState(() {});
+                    },
+                  );
+                },
+                separatorBuilder: (BuildContext context, int idx) {
+                  return const Divider();
+                },
+                itemCount: transactions.length,
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }),
+    );
   }
 }

@@ -13,9 +13,14 @@ import 'package:moneyhive/pages/transactions/page_transactions.dart';
 import 'package:moneyhive/pages/transactions/page_transactions_add.dart';
 import 'package:moneyhive/pages/transactions/page_transactions_edit.dart';
 
+import 'package:moneyhive/pages/wishlist/page_wishlist.dart';
+
+import 'package:moneyhive/pages/home/page_home.dart';
+
+import 'package:moneyhive/pages/profile/page_profile.dart';
+
 final routes = {
   '/': (BuildContext context) => const MyHomePage(),
-  '/transactions': (BuildContext context) => const PageTransactions(),
 };
 
 void main() {
@@ -46,14 +51,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int selectedIndex = 0;
+
+  //list of widgets to call ontap
+  final widgetOptions = [
+    PageHome(),
+    PageTransactions(),
+    PageWishlist(),
+    PageProfile(),
+  ];
+
+  void onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('BottomNavigationBar Sample'),
-        ),
         body: Center(
-          child: Text('Test'),
+          child: widgetOptions.elementAt(selectedIndex),
         ),
         bottomNavigationBar: Theme(
             data: Theme.of(context).copyWith(
@@ -81,6 +99,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.person), label: 'Profile'),
               ],
+              currentIndex: selectedIndex,
+              fixedColor: Color.fromARGB(255, 255, 221, 68),
+              onTap: onItemTapped,
             )));
   }
 }
