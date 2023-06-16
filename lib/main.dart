@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   label: 'Transaction',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.add_shopping_cart),
+                  icon: Icon(Icons.star),
                   label: 'Wishlist',
                 ),
                 BottomNavigationBarItem(
