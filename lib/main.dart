@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.note),
+                  icon: Icon(Icons.paid),
                   label: 'Transaction',
                 ),
                 BottomNavigationBarItem(
