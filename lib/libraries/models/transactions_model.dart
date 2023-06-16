@@ -14,6 +14,35 @@ class Transaction {
   int? status;
   double? itemPrice;
   double? progress;
+
+  Transaction(
+      {this.id,
+      this.userId,
+      this.title,
+      this.description,
+      this.status,
+      this.itemPrice,
+      this.progress});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'userId': userId,
+      'title': title,
+      'description': description,
+      'status': status,
+      'itemPrice': itemPrice,
+      'progress': progress,
+    };
+  }
+
+  factory Transaction.fromMap(Map<String, dynamic> map) {
+    return Transaction(
+      id: map['id'] as int,
+      userId: map['userId'] as int,
+      title: (map['title'] ?? '') as String,
+    );
+  }
 }
 
 class TransactionModel {
@@ -31,13 +60,29 @@ class TransactionModel {
 
     List<Transaction> Transactions = [];
 
+    (sessData.data['data'] as List).forEach((value) {
+      Transactions.add(
+        Transaction.fromMap(
+          {
+            'id': int.parse(value['id']),
+            'author': value['author'],
+            'lastEdit': value['username'],
+            'title': value['title'] ?? '',
+            'content': value['content'] ?? '',
+          },
+        ),
+      );
+    });
     return Transactions;
   }
 
   static Future<double> getBalance() async {
     SessionData sessData = await Session.getURL(
         '$_balanceURL?${DateTime.now().millisecondsSinceEpoch.toString()}');
-    double Balance = 0.2;
+    if (sessData.status != 1) return 0;
+
+    double Balance = double.parse(sessData.data['data']);
+
     return Balance;
   }
 
