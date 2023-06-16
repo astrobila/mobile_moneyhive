@@ -47,41 +47,22 @@ class _MyWidgetState extends State<PageTransactions> {
                   itemBuilder: (BuildContext context, int idx) {
                     return ListTile(
                       leading: const Icon(LineIcons.book),
-                      title: Text(blogs[idx].title),
-                      subtitle: Text(blogs[idx].author ?? ''),
+                      title: Text('transactions'),
+                      subtitle: Text('transactions'),
                       onTap: () async {
                         await Navigator.pushNamed(
                           context,
                           '/blogs_edit',
-                          arguments: blogs[idx],
+                          arguments: transactions[idx],
                         );
                         setState(() {});
                       },
-                      trailing: IconButton(
-                        icon: Icon(LineIcons.trash),
-                        onPressed: () async {
-                          showConfirmDialog(
-                            context,
-                            confirmTitle: 'Delete current note?',
-                            yesOnPressed: () async {
-                              showLoadingDialog(context);
-                              BlogModel.delete(blogs[idx]);
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                              setState(() {});
-                            },
-                            noOnPressed: () {
-                              Navigator.pop(context);
-                            },
-                          );
-                        },
-                      ),
                     );
                   },
                   separatorBuilder: (BuildContext context, int idx) {
                     return const Divider();
                   },
-                  itemCount: blogs.length,
+                  itemCount: transactions.length,
                 );
               }
               return const Center(
