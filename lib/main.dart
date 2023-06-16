@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<Widget> selectedOption() async {
     if ((await Session.getSession()).status != 1) {
-      await Navigator.pushNamed(context, '/login');
+      //await Navigator.pushNamed(context, '/login');
     }
     switch (selectedIndex) {
       case 0:
@@ -101,6 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     .textTheme
                     .copyWith(caption: new TextStyle(color: Colors.yellow))),
             child: BottomNavigationBar(
+              onTap: onItemTapped,
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
@@ -121,5 +122,103 @@ class _MyHomePageState extends State<MyHomePage> {
               fixedColor: Color.fromARGB(255, 255, 221, 68),
               onTap: onItemTapped,
             )));
+  }
+}
+
+class PageProfile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 80,
+              backgroundImage: AssetImage('images/illyan.png'),
+            ),
+            SizedBox(height: 20),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditPage()),
+                    );
+                  },
+                  child:
+                  Text(
+                    'Edit',
+                  style: TextStyle(fontSize: 13),
+                )),
+                SizedBox(width: 5),
+                Icon(Icons.edit, size: 10),
+              ],
+            ),
+            SizedBox(height: 20),
+            Card(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: ListTile(
+                leading: Icon(Icons.person),
+                title: Text('Tartaglia'),
+              ),
+            ),
+            Card(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: ListTile(
+                leading: Icon(Icons.email),
+                title: Text('tatang69@example.com'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class EditPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Edit Profile'),
+      ),
+      body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Form(
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Name',
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Old-Password',
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'New-Password',
+                  ),
+                ),
+                Text("Save "),
+              ],
+            ),
+          ),
+        ),
+    );
   }
 }
