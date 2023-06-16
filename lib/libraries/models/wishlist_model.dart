@@ -40,6 +40,7 @@ class Wishlist {
       id: map['id'] as int,
       userId: map['userId'] as int,
       title: (map['title'] ?? '') as String,
+      description: (map['description'] ?? '') as String,
     );
   }
 }
