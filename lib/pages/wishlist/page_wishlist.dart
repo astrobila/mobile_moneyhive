@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:moneyhive/libraries/models/wishlist_model.dart';
 
 import 'package:moneyhive/shared_widgets/loading_dialog.dart';
 import 'package:moneyhive/shared_widgets/confirm_dialog.dart';
@@ -15,10 +16,10 @@ class PageWishlist extends StatefulWidget {
 
 class _MyWidgetState extends State<PageWishlist> {
   @override
-  List<Transaction> transactions = [];
+  List<Wishlist> wishlist = [];
 
   Future<int> loadData() async {
-    transactions = await TransactionModel.getList();
+    wishlist = await WishlistModel.getList();
     return 1;
   }
 
@@ -30,7 +31,7 @@ class _MyWidgetState extends State<PageWishlist> {
       floatingActionButton: FloatingActionButton(
         child: Icon(LineIcons.plus),
         onPressed: () async {
-          await Navigator.pushNamed(context, '/blogs_add');
+          await Navigator.pushNamed(context, '/wishlist_add');
           setState(() {});
         },
       ),
@@ -62,7 +63,7 @@ class _MyWidgetState extends State<PageWishlist> {
                 separatorBuilder: (BuildContext context, int idx) {
                   return const Divider();
                 },
-                itemCount: transactions.length,
+                itemCount: wishlist.length,
               );
             }
             return const Center(
