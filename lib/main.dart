@@ -101,7 +101,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     .textTheme
                     .copyWith(caption: new TextStyle(color: Colors.yellow))),
             child: BottomNavigationBar(
-              onTap: onItemTapped,
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
