@@ -22,6 +22,8 @@ import 'package:moneyhive/pages/profile/page_profile.dart';
 final routes = {
   '/': (BuildContext context) => const MyHomePage(),
   '/login': (BuildContext context) => const PageLogin(),
+  '/transactions_edit': (BuildContext context) => const PageTransactionEdit(),
+  '/transactions_add': (BuildContext context) => const PageTransactionsAdd(),
 };
 
 void main() {

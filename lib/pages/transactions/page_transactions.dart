@@ -47,8 +47,8 @@ class _MyWidgetState extends State<PageTransactions> {
                 itemBuilder: (BuildContext context, int idx) {
                   return ListTile(
                     leading: const Icon(LineIcons.book),
-                    title: Text('transactions'),
-                    subtitle: Text('transactions'),
+                    title: Text(transactions[idx].title),
+                    subtitle: Text(transactions[idx].amount.toString()),
                     onTap: () async {
                       await Navigator.pushNamed(
                         context,

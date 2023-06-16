@@ -3,31 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:moneyhive/shared_widgets/loading_dialog.dart';
 import 'package:moneyhive/libraries/models/transactions_model.dart';
 
-class PageTransactionEdit extends StatefulWidget {
-  const PageTransactionEdit({super.key});
+class PageTransactionsAdd extends StatefulWidget {
+  const PageTransactionsAdd({super.key});
 
   @override
-  State<PageTransactionEdit> createState() => _PageTransactionEditState();
+  State<PageTransactionsAdd> createState() => _PageTransactionsAddState();
 }
 
-class _PageTransactionEditState extends State<PageTransactionEdit> {
-  @override
+class _PageTransactionsAddState extends State<PageTransactionsAdd> {
   final TextEditingController txtTitle = TextEditingController(text: '');
   final TextEditingController txtContent = TextEditingController(text: '');
-  String txtLastEditBy = "";
 
   final addKey = GlobalKey<FormState>();
 
+  @override
   Widget build(BuildContext context) {
-    final Transaction transaction =
-        ModalRoute.of(context)!.settings.arguments as Transaction;
-
-    txtTitle.text = transaction.title;
-    txtContent.text = transaction.description;
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Transaction'),
+        title: const Text('Add Blog'),
       ),
       body: Form(
         key: addKey,
@@ -71,10 +64,6 @@ class _PageTransactionEditState extends State<PageTransactionEdit> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(txtLastEditBy),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
                   Expanded(
@@ -85,7 +74,6 @@ class _PageTransactionEditState extends State<PageTransactionEdit> {
                           showLoadingDialog(context);
                           await TransactionModel.add(
                             Transaction(
-                              id: transaction.id,
                               title: txtTitle.text,
                               description: txtContent.text,
                             ),
