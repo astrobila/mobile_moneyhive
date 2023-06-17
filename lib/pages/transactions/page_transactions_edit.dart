@@ -27,7 +27,7 @@ class _PageTransactionEditState extends State<PageTransactionEdit> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Transaction'),
+        title: const Text('Edit Transaction'),
       ),
       body: Form(
         key: addKey,

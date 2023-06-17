@@ -90,7 +90,7 @@ class _MyWidgetState extends State<PageWishlist> {
                     onTap: () async {
                       await Navigator.pushNamed(
                         context,
-                        '/wishlist_edit',
+                        '/wishlist_progress',
                         arguments: wishlist[idx],
                       );
                       setState(() {});

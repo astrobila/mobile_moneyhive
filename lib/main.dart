@@ -4,6 +4,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:moneyhive/app_config.dart';
 import 'package:moneyhive/libraries/session.dart';
 import 'package:moneyhive/pages/wishlist/page_wishlist_add.dart';
+import 'package:moneyhive/pages/wishlist/page_wishlist_progress.dart';
 
 import 'package:moneyhive/shared_widgets/menu_icon.dart';
 import 'package:moneyhive/shared_widgets/alert_dialog.dart';
@@ -26,6 +27,7 @@ final routes = {
   '/transactions_edit': (BuildContext context) => const PageTransactionEdit(),
   '/transactions_add': (BuildContext context) => const PageTransactionsAdd(),
   '/wishlist_add': (BuildContext context) => const PageWishlistAdd(),
+  '/wishlist_progress': (BuildContext context) => const PageWishlistProgress()
 };
 
 void main() {
