@@ -8,8 +8,8 @@ import 'package:moneyhive/libraries/session.dart';
 class Wishlist {
   int? id;
   int? userId;
-  String? title;
-  String? description;
+  String itemName;
+  String description;
   int? status;
   double? itemPrice;
   double? progress;
@@ -17,8 +17,8 @@ class Wishlist {
   Wishlist(
       {this.id,
       this.userId,
-      this.title,
-      this.description,
+      required this.itemName,
+      required this.description,
       this.status,
       this.itemPrice,
       this.progress});
@@ -27,7 +27,7 @@ class Wishlist {
     return {
       'id': id,
       'userId': userId,
-      'title': title,
+      'itemName': itemName,
       'description': description,
       'status': status,
       'itemPrice': itemPrice,
@@ -37,11 +37,13 @@ class Wishlist {
 
   factory Wishlist.fromMap(Map<String, dynamic> map) {
     return Wishlist(
-      id: map['id'] as int,
-      userId: map['userId'] as int,
-      title: (map['title'] ?? '') as String,
-      description: (map['description'] ?? '') as String,
-    );
+        id: map['id'] as int,
+        userId: map['userId'] as int,
+        itemName: (map['itemName'] ?? '') as String,
+        description: (map['description'] ?? '') as String,
+        status: map['status'] as int,
+        itemPrice: map['itemPrice'] as double,
+        progress: map['progress'] as double);
   }
 }
 
@@ -63,8 +65,9 @@ class WishlistModel {
           {
             'id': int.parse(value['id']),
             'userId': int.parse(value['user_id']),
-            'title': value['title'] ?? '',
+            'itemName': value['item_name'] ?? '',
             'description': value['description'] ?? '',
+            'status': int.parse(value['status']),
             'itemPrice': double.parse(value['item_price']),
             'progress': double.parse(value['progress']),
           },
@@ -77,7 +80,7 @@ class WishlistModel {
   static Future<int> add(Wishlist wishlist) async {
     SessionData sessData = await Session.postURL(
         '$_addURL?${DateTime.now().millisecondsSinceEpoch.toString()}', {
-      'title': wishlist.title,
+      'itemName': wishlist.itemName,
     });
     return sessData.status;
   }

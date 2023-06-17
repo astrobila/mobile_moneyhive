@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:moneyhive/libraries/models/wishlist_model.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 import 'package:moneyhive/shared_widgets/loading_dialog.dart';
 import 'package:moneyhive/shared_widgets/confirm_dialog.dart';
@@ -21,6 +22,25 @@ class _MyWidgetState extends State<PageWishlist> {
   Future<int> loadData() async {
     wishlist = await WishlistModel.getList();
     return 1;
+  }
+
+  String statusString(int? status) {
+    switch (status) {
+      case 1:
+        return 'Ongoing';
+      case 2:
+        return 'Done';
+      case 3:
+        return 'Cancelled';
+    }
+
+    return '';
+  }
+
+  double calculateProgress(double? progress, double? price) {
+    double itemProgress = progress ?? 0;
+    double itemPrice = price ?? 1;
+    return itemProgress / itemPrice;
   }
 
   Widget build(BuildContext context) {
@@ -47,14 +67,31 @@ class _MyWidgetState extends State<PageWishlist> {
               return ListView.separated(
                 itemBuilder: (BuildContext context, int idx) {
                   return ListTile(
-                    leading: const Icon(LineIcons.book),
-                    title: Text('transactions'),
-                    subtitle: Text('transactions'),
+                    leading: const Icon(LineIcons.starAlt),
+                    title: Text(wishlist[idx].itemName),
+                    subtitle: Column(children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          statusString(wishlist[idx].status),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      LinearPercentIndicator(
+                        width: 323.0,
+                        lineHeight: 14.0,
+                        percent: calculateProgress(
+                            wishlist[idx].progress, wishlist[idx].itemPrice),
+                        backgroundColor: Colors.grey,
+                        progressColor: Colors.yellow,
+                      )
+                    ]),
+                    isThreeLine: true,
                     onTap: () async {
                       await Navigator.pushNamed(
                         context,
-                        '/blogs_edit',
-                        arguments: transactions[idx],
+                        '/wishlist_edit',
+                        arguments: wishlist[idx],
                       );
                       setState(() {});
                     },

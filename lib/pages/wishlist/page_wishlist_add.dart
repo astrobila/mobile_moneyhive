@@ -74,7 +74,7 @@ class _PageWishlistAddState extends State<PageWishlistAdd> {
                           showLoadingDialog(context);
                           await WishlistModel.add(
                             Wishlist(
-                              title: txtTitle.text,
+                              itemName: txtTitle.text,
                               description: txtContent.text,
                             ),
                           );
